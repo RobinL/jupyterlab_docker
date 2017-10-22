@@ -37,6 +37,8 @@ USER root
 # (so we don't have to do it at container start)
 
 ADD testfiles /home/jovyan/work/testfiles
+ADD testfiles /home/jovyan/work/testfiles
+RUN chmod a+rwx -R /home/jovyan/work/testfiles
 COPY container-start.sh /usr/local/bin/
 RUN chmod +x /usr/local/bin/container-start.sh
 
