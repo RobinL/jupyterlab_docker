@@ -4,40 +4,32 @@ FROM jupyter/datascience-notebook
 RUN conda install anaconda
 
 # Install Jupyter Dashboard
-# RUN pip install jupyter_dashboards
-# RUN jupyter dashboards quick-setup --sys-prefix
-# RUN jupyter nbextension enable jupyter_dashboards --py --sys-prefix
 RUN conda install jupyter_dashboards -c conda-forge
 
 # See https://github.com/jupyterlab/jupyter-renderers
 # Note there seems to be a bug that means you can't install both geojson and json
+# See https://github.com/jupyterlab/jupyter-renderers/issues/53
 # RUN jupyter labextension install @jupyterlab/json-extension
 RUN jupyter labextension install @jupyterlab/geojson-extension
-RUN jupyter labextension install @jupyterlab/plotly-extension
+# RUN jupyter labextension install @jupyterlab/plotly-extension
 
-# Install Vega
+# Install Vega and Altair
 RUN pip install altair
 RUN pip install https://github.com/altair-viz/jupyter_vega/archive/master.zip
-# It seems that this is now installed by default and the following lines are no longer neede
-# RUN jupyter labextension install --symlink --py --sys-prefix jupyterlab_vega
-# RUN jupyter labextension enable --py --sys-prefix jupyterlab_vega
-# For Notebook
-# RUN jupyter nbextension install --symlink --py --sys-prefix jupyterlab_vega
-# RUN jupyter nbextension enable --py --sys-prefix jupyterlab_vega
 
 RUN jupyter labextension install jupyterlab_voyager
 
 # Install widgets - see https://github.com/jupyter-widgets/ipywidgets/blob/62b1c501a0a0edf0574ca57417eca55b0a3069c2/packages/jupyterlab-manager/README.md
-
+# This currently fails due to conflicting dependencies/different version.s
+# RUN jupyter labextension install @jupyter-widgets/jupyterlab-manager@0.27.1
 # RUN git clone https://github.com/jupyter-widgets/ipywidgets.git
-# WORKDIR $HOME/packages/jupyterlab-manager
+# WORKDIR $HOME/ipywidgets
+# RUN git checkout @jupyter-widgets/jupyterlab-manager@0.27.1
+# WORKDIR $HOME/ipywidgets/packages/jupyterlab-manager
 # RUN npm install
 # RUN npm run build
 # RUN jupyter labextension link .
 # WORKDIR $HOME
-# RUN pip install jupyterlab_widgets
-# RUN jupyter labextension install jupyterlab_widgets
-# RUN jupyter labextension enable jupyterlab_widgets
 
 USER root
 
