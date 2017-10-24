@@ -2,12 +2,14 @@
 Jupyter Notebook Docker image for Analytics Platform
 
 For jupyter lab:
+
 ```
 docker run -d -p 8888:8888 jl start.sh jupyter lab --NotebookApp.token=''
 ```
 
-```
+
 For Jupyter Notebook:
+
 ```
 docker run -d -p 8889:8888 jl start-notebook.sh --NotebookApp.token=''
 ```
